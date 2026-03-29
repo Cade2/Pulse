@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "90208744562",
+    "project_id": "pulse-254c0",
+    "storage_bucket": "pulse-254c0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90208744562:android:6497d2559128b7ad8b3eeb",
+        "android_client_info": {
+          "package_name": "com.cade2.pulse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC4BxuNZZudIw9gXfVHCN3mlMQ9fWnTKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
