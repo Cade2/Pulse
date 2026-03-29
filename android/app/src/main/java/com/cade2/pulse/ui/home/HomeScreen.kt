@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,7 +50,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cade2.pulse.R
 import com.cade2.pulse.ui.theme.Accent
-import com.cade2.pulse.ui.theme.Divider
 import com.cade2.pulse.ui.theme.Positive
 import com.cade2.pulse.ui.theme.Surface
 import java.util.Calendar
@@ -94,12 +94,12 @@ fun HomeScreen(
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 24.dp, vertical = 32.dp)
                 ) {
-                    // Greeting
                     val greeting = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
                         in 5..11 -> stringResource(R.string.greeting_morning)
                         in 12..17 -> stringResource(R.string.greeting_afternoon)
                         else -> stringResource(R.string.greeting_evening)
                     }
+
                     Text(
                         text = "$greeting${if (uiState.userName.isNotBlank()) ", ${uiState.userName}" else ""}",
                         style = MaterialTheme.typography.headlineMedium,
@@ -110,7 +110,6 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(32.dp))
 
                     if (uiState.hasCompletedToday) {
-                        // Session completed state
                         if (uiState.streakCount > 0) {
                             StreakBadge(streak = uiState.streakCount)
                             Spacer(modifier = Modifier.height(24.dp))
@@ -121,6 +120,7 @@ fun HomeScreen(
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
+
                         Spacer(modifier = Modifier.height(12.dp))
 
                         FlowRow(
@@ -150,7 +150,6 @@ fun HomeScreen(
                             }
                         }
                     } else {
-                        // No session yet — CTA card
                         Card(
                             modifier = Modifier.fillMaxWidth(),
                             colors = CardDefaults.cardColors(containerColor = Surface),
@@ -162,20 +161,26 @@ fun HomeScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(text = "💜", fontSize = 48.sp)
+
                                 Spacer(modifier = Modifier.height(16.dp))
+
                                 Text(
                                     text = stringResource(R.string.label_how_are_you_feeling),
                                     style = MaterialTheme.typography.titleLarge,
                                     color = MaterialTheme.colorScheme.onSurface,
                                     fontWeight = FontWeight.Bold
                                 )
+
                                 Spacer(modifier = Modifier.height(8.dp))
+
                                 Text(
                                     text = stringResource(R.string.label_cta_description),
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
+
                                 Spacer(modifier = Modifier.height(24.dp))
+
                                 Button(
                                     onClick = onNavigateToSwipe,
                                     modifier = Modifier
@@ -263,7 +268,7 @@ fun PulseBottomNav(
 }
 
 @Composable
-private fun BottomNavItem(
+private fun RowScope.BottomNavItem(
     icon: ImageVector,
     label: String,
     selected: Boolean,
@@ -277,7 +282,12 @@ private fun BottomNavItem(
                 modifier = Modifier.size(24.dp)
             )
         },
-        label = { Text(text = label, style = MaterialTheme.typography.labelSmall) },
+        label = {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelSmall
+            )
+        },
         selected = selected,
         onClick = onClick,
         colors = NavigationBarItemDefaults.colors(
